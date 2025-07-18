@@ -8,9 +8,14 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "test": "vitest && echo '✅ Tests passed successfully!'",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage && echo '✅ Tests with coverage completed!'",
+    "coverage": "vitest run --coverage && echo '✅ Coverage report generated!'",
+    "coverage:open": "vitest run --coverage && open coverage/index.html && echo '✅ Coverage report opened!'",
+    "lint": "NODE_NO_WARNINGS=1 eslint . && echo '✅ ESLint passed successfully!' || (echo '❌ ESLint found errors!' && exit 1)",
+    "lint:fix": "NODE_NO_WARNINGS=1 eslint . --fix && echo '✅ ESLint auto-fix completed!' || echo '❌ ESLint auto-fix encountered errors!'",
+    "lint:check": "NODE_NO_WARNINGS=1 eslint . --max-warnings 0",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
@@ -22,6 +27,9 @@
     "@nuxt/eslint": "^1.6.0",
     "@nuxt/test-utils": "^3.19.2",
     "@nuxtjs/tailwindcss": "^6.14.0",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitest/coverage-istanbul": "^3.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^18.0.1",
     "vitest": "^3.2.4"

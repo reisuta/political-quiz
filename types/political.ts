@@ -1,4 +1,4 @@
-export interface PoliticalParty {
+export type PoliticalParty = {
   id: string
   name: string
   nameEn: string
@@ -8,13 +8,13 @@ export interface PoliticalParty {
   policies: PolicyPositions
 }
 
-export interface PoliticalIdeology {
+export type PoliticalIdeology = {
   spectrum: 'left' | 'center-left' | 'center' | 'center-right' | 'right'
   subIdeologies: SubIdeology[]
   globalismStance: 'anti-globalism' | 'pro-globalism' | 'rationalist'
 }
 
-export type SubIdeology = 
+export type SubIdeology =
   | 'neoconservatism'
   | 'libertarianism'
   | 'social-democracy'
@@ -23,7 +23,7 @@ export type SubIdeology =
   | 'environmentalism'
   | 'populism'
 
-export interface PolicyPositions {
+export type PolicyPositions = {
   constitutionalRevision: PolicyStance
   consumptionTax: PolicyStance
   foreignerIssues: PolicyStance
@@ -34,7 +34,7 @@ export interface PolicyPositions {
 
 export type PolicyStance = 'strongly-support' | 'support' | 'neutral' | 'oppose' | 'strongly-oppose'
 
-export interface QuizQuestion {
+export type QuizQuestion = {
   id: string
   type: 'multiple-choice' | 'true-false' | 'policy-stance'
   question: string

@@ -1,198 +1,211 @@
 import type { QuizQuestion } from '~/types/political'
 
 export const quizQuestions: QuizQuestion[] = [
-  // {
-  //   id: 'q1',
-  //   type: 'multiple-choice',
-  //   question: '自由民主党が設立されたのは何年ですか？',
-  //   options: ['1945年', '1955年', '1965年', '1975年'],
-  //   correctAnswer: 1,
-  //   explanation: '自由民主党は1955年に設立されました。',
-  //   category: 'basic-info',
-  //   relatedParty: 'ldp'
-  // },
-  // {
-  //   id: 'q2',
-  //   type: 'multiple-choice',
-  //   question: '日本共産党の政治的立場はどれですか？',
-  //   options: ['右派', '中道', '左派', '中道右派'],
-  //   correctAnswer: 2,
-  //   explanation: '日本共産党は左派政党です。',
-  //   category: 'ideology',
-  //   relatedParty: 'jcp'
-  // },
-  // {
-  //   id: 'q3',
-  //   type: 'true-false',
-  //   question: '公明党は創価学会を支持母体としている。',
-  //   correctAnswer: 'true',
-  //   explanation: '公明党は創価学会を主要な支持母体としています。',
-  //   category: 'basic-info',
-  //   relatedParty: 'komeito'
-  // },
-  // {
-  //   id: 'q4',
-  //   type: 'multiple-choice',
-  //   question: '憲法改正に最も積極的な政党はどれですか？',
-  //   options: ['立憲民主党', '日本共産党', '自由民主党', 'れいわ新選組'],
-  //   correctAnswer: 2,
-  //   explanation: '自由民主党は憲法改正を積極的に推進しています。',
-  //   category: 'policy',
-  //   relatedParty: 'ldp'
-  // },
-  // {
-  //   id: 'q5',
-  //   type: 'multiple-choice',
-  //   question: '消費税廃止を主張している政党はどれですか？',
-  //   options: ['自由民主党', '公明党', 'れいわ新選組', '国民民主党'],
-  //   correctAnswer: 2,
-  //   explanation: 'れいわ新選組は消費税の廃止を強く主張しています。',
-  //   category: 'policy',
-  //   relatedParty: 'reiwa'
-  // },
-  // {
-  //   id: 'q6',
-  //   type: 'multiple-choice',
-  //   question: '日本維新の会の主要な支持基盤はどこですか？',
-  //   options: ['東京', '関西', '東北', '九州'],
-  //   correctAnswer: 1,
-  //   explanation: '日本維新の会は関西を主要な支持基盤としています。',
-  //   category: 'basic-info',
-  //   relatedParty: 'nippponishin'
-  // },
+  // 東京裁判史観について (q1-q3)
+  {
+    id: 'q1',
+    type: 'multiple-choice',
+    question: '東京裁判史観に最も批判的な立場を取る政党はどれですか？',
+    options: ['立憲民主党', '日本共産党', '日本保守党', 'れいわ新選組'],
+    correctAnswer: 2,
+    explanation: '日本保守党は東京裁判史観を強く批判し、自虐史観からの脱却を主張しています。',
+    category: 'tokyo-trial',
+    relatedParty: 'jcp'
+  },
+  {
+    id: 'q2',
+    type: 'true-false',
+    question: '東京裁判史観は戦後日本の教育に大きな影響を与えた。',
+    correctAnswer: 'true',
+    explanation: '東京裁判史観は戦後の歴史教育や国民意識の形成に大きな影響を与えました。',
+    category: 'tokyo-trial',
+    relatedParty: 'ldp'
+  },
+  {
+    id: 'q3',
+    type: 'multiple-choice',
+    question: '東京裁判について最も保守的な見解を持つのはどれですか？',
+    options: ['戦勝国による一方的な裁き', '正当な国際法廷', '平和への第一歩', '国際協調の象徴'],
+    correctAnswer: 0,
+    explanation: '保守派は東京裁判を戦勝国による一方的な復讐裁判として批判することが多いです。',
+    category: 'tokyo-trial',
+    relatedParty: 'jcp'
+  },
+
+  // 在日特権について (q4-q6)
+  {
+    id: 'q4',
+    type: 'true-false',
+    question: '在日特権という概念は日本第一党が強調している政治的主張である。',
+    correctAnswer: 'true',
+    explanation: '日本第一党は在日特権の存在を主張し、その是正を政策の柱としています。',
+    category: 'zainichi-privilege',
+    relatedParty: 'jfp'
+  },
+  {
+    id: 'q5',
+    type: 'multiple-choice',
+    question: '在日特権問題に最も注目している政党はどれですか？',
+    options: ['立憲民主党', '公明党', '日本第一党', '国民民主党'],
+    correctAnswer: 2,
+    explanation: '日本第一党は在日特権問題を主要な政治課題として掲げています。',
+    category: 'zainichi-privilege',
+    relatedParty: 'jfp'
+  },
+  {
+    id: 'q6',
+    type: 'multiple-choice',
+    question: '在日韓国・朝鮮人の参政権について最も慎重な立場はどれですか？',
+    options: ['積極的賛成', '条件付き賛成', '反対', '検討中'],
+    correctAnswer: 2,
+    explanation: '保守系政党の多くは外国人参政権に反対の立場を取っています。',
+    category: 'zainichi-privilege',
+    relatedParty: 'ldp'
+  },
+
+  // 在日と反日教育について (q7-q9)
   {
     id: 'q7',
     type: 'true-false',
-    question: '日本第一党は反グローバリズムの立場を取っている。',
+    question: '反日教育の是正は保守系政党の重要な政策課題である。',
     correctAnswer: 'true',
-    explanation: '日本第一党は反グローバリズムの立場を明確にしています。',
-    category: 'ideology',
-    relatedParty: 'jfp'
+    explanation: '多くの保守系政党は反日教育を問題視し、愛国教育の推進を主張しています。',
+    category: 'anti-japan-education',
+    relatedParty: 'ldp'
   },
   {
     id: 'q8',
     type: 'multiple-choice',
-    question: 'リバタリアニズムに最も近い思想を持つのはどの政党ですか？',
-    options: ['日本共産党', '公明党', '日本維新の会', '立憲民主党'],
+    question: '教育勅語の評価について最も肯定的な立場を取るのはどれですか？',
+    options: ['日本共産党', 'れいわ新選組', '日本保守党', '立憲民主党'],
     correctAnswer: 2,
-    explanation: '日本維新の会は規制緩和や小さな政府を志向し、リバタリアニズム的要素があります。',
-    category: 'ideology',
-    relatedParty: 'nippponishin'
+    explanation: '日本保守党などの保守系政党は教育勅語を日本の伝統的価値観として評価します。',
+    category: 'anti-japan-education',
+    relatedParty: 'jcp'
   },
   {
     id: 'q9',
-    type: 'multiple-choice',
-    question: '立憲民主党の主要な政治的立場はどれですか？',
-    options: ['保守', 'リベラル', '右派', '新保守主義'],
-    correctAnswer: 1,
-    explanation: '立憲民主党はリベラルな政治的立場を取っています。',
-    category: 'ideology',
-    relatedParty: 'cdp'
+    type: 'true-false',
+    question: '道徳教育の充実は愛国心教育と密接に関連している。',
+    correctAnswer: 'true',
+    explanation: '保守派は道徳教育を通じて愛国心や伝統的価値観の醸成を重視しています。',
+    category: 'anti-japan-education',
+    relatedParty: 'ldp'
   },
+
+  // 日本の歴史認識について (q10-q12)
   {
     id: 'q10',
-    type: 'true-false',
-    question: '国民民主党は労働組合を支持基盤としている。',
-    correctAnswer: 'true',
-    explanation: '国民民主党は連合（日本労働組合総連合会）を主要な支持基盤としています。',
-    category: 'basic-info',
-    relatedParty: 'dpfp'
+    type: 'multiple-choice',
+    question: '靖国神社参拝に最も積極的な政党はどれですか？',
+    options: ['立憲民主党', '日本共産党', '自由民主党', 'れいわ新選組'],
+    correctAnswer: 2,
+    explanation: '自由民主党の多くの議員は靖国神社参拝を支持しています。',
+    category: 'historical-recognition',
+    relatedParty: 'ldp'
   },
-  // {
-  //   id: 'q11',
-  //   type: 'multiple-choice',
-  //   question: '社会民主党が最も重視する政策分野はどれですか？',
-  //   options: ['経済成長', '平和・人権', '規制緩和', '憲法改正'],
-  //   correctAnswer: 1,
-  //   explanation: '社会民主党は平和と人権を最も重視する政策を掲げています。',
-  //   category: 'policy',
-  //   relatedParty: 'sdp'
-  // },
-  // {
-  //   id: 'q12',
-  //   type: 'multiple-choice',
-  //   question: '日本第一党の外国人問題に対する立場はどれですか？',
-  //   options: ['多文化共生推進', '移民受け入れ拡大', '厳格な入国管理', 'グローバル化推進'],
-  //   correctAnswer: 2,
-  //   explanation: '日本第一党は厳格な入国管理と外国人問題に対して強硬な立場を取っています。',
-  //   category: 'policy',
-  //   relatedParty: 'jfp'
-  // },
-  // {
-  //   id: 'q13',
-  //   type: 'true-false',
-  //   question: 'れいわ新選組は新保守主義の立場を取っている。',
-  //   correctAnswer: 'false',
-  //   explanation: 'れいわ新選組は反新自由主義的な立場で、新保守主義とは対立する政策を掲げています。',
-  //   category: 'ideology',
-  //   relatedParty: 'reiwa'
-  // },
-  // {
-  //   id: 'q14',
-  //   type: 'multiple-choice',
-  //   question: '天皇制について最も保守的な立場を取るのはどの政党ですか？',
-  //   options: ['日本共産党', '社会民主党', '自由民主党', 'れいわ新選組'],
-  //   correctAnswer: 2,
-  //   explanation: '自由民主党は天皇制について最も保守的で伝統的な立場を維持しています。',
-  //   category: 'policy',
-  //   relatedParty: 'ldp'
-  // },
-  // {
-  //   id: 'q15',
-  //   type: 'multiple-choice',
-  //   question: '日本維新の会が発祥した地域はどこですか？',
-  //   options: ['東京都', '大阪府', '愛知県', '福岡県'],
-  //   correctAnswer: 1,
-  //   explanation: '日本維新の会は大阪府知事だった橋下徹氏らによって設立されました。',
-  //   category: 'basic-info',
-  //   relatedParty: 'nippponishin'
-  // },
-  // {
-  //   id: 'q16',
-  //   type: 'true-false',
-  //   question: '公明党は憲法改正に積極的である。',
-  //   correctAnswer: 'false',
-  //   explanation: '公明党は憲法改正については慎重な立場を取っており、平和憲法の理念を重視しています。',
-  //   category: 'policy',
-  //   relatedParty: 'komeito'
-  // },
-  // {
-  //   id: 'q17',
-  //   type: 'multiple-choice',
-  //   question: '安全保障政策で最も現実主義的な立場を取るのはどの政党ですか？',
-  //   options: ['日本共産党', '社会民主党', '自由民主党', 'れいわ新選組'],
-  //   correctAnswer: 2,
-  //   explanation: '自由民主党は日米同盟を基軸とした現実主義的な安全保障政策を推進しています。',
-  //   category: 'policy',
-  //   relatedParty: 'ldp'
-  // },
-  // {
-  //   id: 'q18',
-  //   type: 'multiple-choice',
-  //   question: '反グローバリズムの立場を最も明確にしているのはどの政党ですか？',
-  //   options: ['立憲民主党', '国民民主党', '日本第一党', '公明党'],
-  //   correctAnswer: 2,
-  //   explanation: '日本第一党は反グローバリズムの立場を最も明確に打ち出しています。',
-  //   category: 'ideology',
-  //   relatedParty: 'jfp'
-  // },
-  // {
-  //   id: 'q19',
-  //   type: 'true-false',
-  //   question: '立憲民主党は消費税増税に賛成している。',
-  //   correctAnswer: 'false',
-  //   explanation: '立憲民主党は消費税増税に反対し、減税を主張しています。',
-  //   category: 'policy',
-  //   relatedParty: 'cdp'
-  // },
-  // {
-  //   id: 'q20',
-  //   type: 'multiple-choice',
-  //   question: '女性天皇について最も柔軟な立場を取るのはどの政党ですか？',
-  //   options: ['自由民主党', '日本第一党', '立憲民主党', '日本維新の会'],
-  //   correctAnswer: 2,
-  //   explanation: '立憲民主党は女性天皇や女系天皇について比較的柔軟な立場を示しています。',
-  //   category: 'policy',
-  //   relatedParty: 'cdp'
-  // }
+  {
+    id: 'q11',
+    type: 'true-false',
+    question: '従軍慰安婦問題について日韓で歴史認識の相違がある。',
+    correctAnswer: 'true',
+    explanation: '従軍慰安婦問題は日韓間の歴史認識問題の主要な争点の一つです。',
+    category: 'historical-recognition',
+    relatedParty: 'ldp'
+  },
+  {
+    id: 'q12',
+    type: 'multiple-choice',
+    question: '南京事件の歴史認識について最も懐疑的な立場はどれですか？',
+    options: ['事実として受け入れる', '規模に疑問を呈する', '完全に否定する', '中国の主張に同調'],
+    correctAnswer: 1,
+    explanation: '保守派の多くは南京事件の規模や詳細について疑問を呈しています。',
+    category: 'historical-recognition',
+    relatedParty: 'ldp'
+  },
+
+  // 再生の道と石丸伸二の政治的立場について (q13-q15)
+  {
+    id: 'q13',
+    type: 'multiple-choice',
+    question: '石丸伸二氏の政治的立場に最も近いのはどれですか？',
+    options: ['保守', '中道', '改革', 'リベラル'],
+    correctAnswer: 2,
+    explanation: '石丸氏は従来の政治の枠にとらわれない改革志向の政治姿勢を示しています。',
+    category: 'ishimaru-politics',
+    relatedParty: 'independent'
+  },
+  {
+    id: 'q14',
+    type: 'true-false',
+    question: '石丸伸二氏は地方政治から国政への転身を図った政治家である。',
+    correctAnswer: 'true',
+    explanation: '石丸氏は安芸高田市長として地方政治で実績を積み、国政進出を目指しています。',
+    category: 'ishimaru-politics',
+    relatedParty: 'independent'
+  },
+  {
+    id: 'q15',
+    type: 'multiple-choice',
+    question: '石丸氏が重視する政治手法はどれですか？',
+    options: ['密室政治', '情報公開', '利権調整', '既得権益保護'],
+    correctAnswer: 1,
+    explanation: '石丸氏は透明性の高い政治と積極的な情報公開を重視しています。',
+    category: 'ishimaru-politics',
+    relatedParty: 'independent'
+  },
+
+  // リバタリアニズムとは何か (q16-q17)
+  {
+    id: 'q16',
+    type: 'multiple-choice',
+    question: 'リバタリアニズムの基本的な理念はどれですか？',
+    options: ['大きな政府', '個人の自由最大化', '社会主義', '集団主義'],
+    correctAnswer: 1,
+    explanation: 'リバタリアニズムは個人の自由を最大化し、政府の介入を最小化することを理念とします。',
+    category: 'libertarianism',
+    relatedParty: 'nippponishin'
+  },
+  {
+    id: 'q17',
+    type: 'true-false',
+    question: 'リバタリアニズムは小さな政府を志向する。',
+    correctAnswer: 'true',
+    explanation: 'リバタリアニズムは政府の役割を最小限に留め、市場の自由を重視します。',
+    category: 'libertarianism',
+    relatedParty: 'nippponishin'
+  },
+
+  // 新自由主義と新保守主義について (q18-q19)
+  {
+    id: 'q18',
+    type: 'multiple-choice',
+    question: '新自由主義と新保守主義の違いは何ですか？',
+    options: ['経済と安全保障の重視点', '左右の政治的立場', '国際協調への姿勢', '社会保障への考え方'],
+    correctAnswer: 0,
+    explanation: '新自由主義は経済自由化を、新保守主義は強い安全保障政策を重視します。',
+    category: 'neoliberalism-neoconservatism',
+    relatedParty: 'ldp'
+  },
+  {
+    id: 'q19',
+    type: 'true-false',
+    question: '新保守主義は道徳的価値観を重視する。',
+    correctAnswer: 'true',
+    explanation: '新保守主義は伝統的な道徳観や価値観の維持を重要視します。',
+    category: 'neoliberalism-neoconservatism',
+    relatedParty: 'ldp'
+  },
+
+  // 日本保守党と新保守主義の関連と参政党との違いについて (q20)
+  {
+    id: 'q20',
+    type: 'multiple-choice',
+    question: '日本保守党と参政党の主な違いはどこにありますか？',
+    options: ['経済政策', '外交政策', '教育政策', '全ての政策領域'],
+    correctAnswer: 3,
+    explanation: '両党は保守的価値観を共有しつつも、具体的な政策アプローチや重点分野で違いがあります。',
+    category: 'conservative-parties',
+    relatedParty: 'jcp'
+  }
 ]

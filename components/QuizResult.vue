@@ -3,7 +3,7 @@
     <h3 class="text-2xl font-bold text-gray-800 mb-4">
       クイズ完了！
     </h3>
-    
+
     <div class="mb-6">
       <div class="text-6xl font-bold mb-2" :class="scoreColor">
         {{ score }}%
@@ -27,7 +27,7 @@
       >
         もう一度挑戦
       </button>
-      
+
       <button
         class="w-full bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-3 px-6 rounded-lg transition duration-200"
         @click="showDetailedResults = !showDetailedResults"
@@ -48,7 +48,7 @@
         >
           <div class="flex items-center mb-2">
             <span class="text-sm font-medium text-gray-600">問題 {{ index + 1 }}</span>
-            <span 
+            <span
               class="ml-2 px-2 py-1 text-xs rounded-full"
               :class="result.isCorrect ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'"
             >
@@ -64,9 +64,26 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
+type QuizResultItem = {
+  question: {
+    id: string
+    question: string
+    type: string
+    options?: string[]
+    correctAnswer: string | number
+    explanation: string
+    category: string
+    relatedParty: string
+  }
+  userAnswer: string | number
+  correctAnswer: string | number
+  isCorrect: boolean
+  explanation: string
+}
+
+type Props = {
   score: number
-  quizResults: any[]
+  quizResults: QuizResultItem[]
 }
 
 const props = defineProps<Props>()
@@ -103,7 +120,7 @@ const detailedResults = computed(() => {
   if (props.quizResults && props.quizResults.length > 0) {
     return props.quizResults
   }
-  
+
   // フォールバック：getAnswerResultを使用
   const results = []
   for (let i = 0; i < totalQuestions.value; i++) {
