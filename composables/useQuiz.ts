@@ -1,22 +1,25 @@
 import type { QuizQuestion as _QuizQuestion } from '~/types/political'
 import { quizQuestions } from '~/data/questions'
 
-export const useQuiz = () => {
-  const currentQuestionIndex = ref(0)
-  const selectedAnswers = ref<(string | number)[]>([])
-  const score = ref(0)
-  const isCompleted = ref(false)
-  const showResult = ref(false)
-  const currentQuestions = ref([...quizQuestions])
-  type QuizResultItem = {
-    question: _QuizQuestion
-    userAnswer: string | number
-    correctAnswer: string | number
-    isCorrect: boolean
-    explanation: string
-  }
+// シングルトンとして状態を管理
+const currentQuestionIndex = ref(0)
+const selectedAnswers = ref<(string | number)[]>([])
+const score = ref(0)
+const isCompleted = ref(false)
+const showResult = ref(false)
+const currentQuestions = ref([...quizQuestions])
 
-  const quizResults = ref<QuizResultItem[]>([])
+type QuizResultItem = {
+  question: _QuizQuestion
+  userAnswer: string | number
+  correctAnswer: string | number
+  isCorrect: boolean
+  explanation: string
+}
+
+const quizResults = ref<QuizResultItem[]>([])
+
+export const useQuiz = () => {
 
   const currentQuestion = computed(() => currentQuestions.value[currentQuestionIndex.value])
   const totalQuestions = computed(() => currentQuestions.value.length)
@@ -93,8 +96,14 @@ export const useQuiz = () => {
     if (categoryQuestions.length === 0) {
       throw new Error(`カテゴリー "${category}" に問題がありません`)
     }
+    // 先にリセットしてから、カテゴリーの問題を設定
+    currentQuestionIndex.value = 0
+    selectedAnswers.value = []
+    score.value = 0
+    isCompleted.value = false
+    showResult.value = false
+    quizResults.value = []
     currentQuestions.value = [...categoryQuestions]
-    resetQuiz()
   }
 
   const getAvailableCategories = () => {
@@ -108,14 +117,16 @@ export const useQuiz = () => {
 
   const getCategoryDisplayName = (category: string) => {
     const categoryNames: Record<string, string> = {
-      'tokyo-trial': '東京裁判史観について',
-      'zainichi-privilege': '在日特権について',
-      'anti-japan-education': '在日と反日教育について',
-      'historical-recognition': '日本の歴史認識について',
-      'ishimaru-politics': '再生の道と石丸伸二の政治的立場について',
-      'libertarianism': 'リバタリアニズムとはなにか',
-      'neoliberalism-neoconservatism': '新自由主義と新保守主義について',
-      'conservative-parties': '日本保守党と新保守主義の関連と参政党との違いについて'
+      '新自由主義と新保守主義': '新自由主義と新保守主義',
+      '日本の歴代総理大臣の功績と失敗': '日本の歴代総理大臣の功績と失敗',
+      'グローバリズムと反グローバリズム': 'グローバリズムと反グローバリズム',
+      '東京裁判史観と日本の歴史認識について': '東京裁判史観と日本の歴史認識について',
+      '右翼と反左翼': '右翼と反左翼',
+      '在日': '在日',
+      '選択的夫婦別姓と皇統': '選択的夫婦別姓と皇統',
+      '参政党と日本保守党': '参政党と日本保守党',
+      '再生の道とチーム未来': '再生の道とチーム未来',
+      '国政政党の政策について': '国政政党の政策について'
     }
     return categoryNames[category] || category
   }
@@ -154,6 +165,7 @@ export const useQuiz = () => {
     isCompleted: readonly(isCompleted),
     showResult: readonly(showResult),
     quizResults: readonly(quizResults),
+    currentQuestions: readonly(currentQuestions),
     shuffleQuestions,
     selectAnswer,
     nextQuestion,
@@ -164,6 +176,9 @@ export const useQuiz = () => {
     getAnswerResult,
     startCategoryQuiz,
     getAvailableCategories,
-    getCategoryDisplayName
+    getCategoryDisplayName,
+    completeQuiz: () => finishQuiz(),
+    startQuizWithCategory: (category: string) => startCategoryQuiz(category),
+    getDetailedResults: () => quizResults.value
   }
 }

@@ -41,6 +41,6 @@ export type QuizQuestion = {
   options?: string[]
   correctAnswer: string | number
   explanation: string
-  category: 'basic-info' | 'ideology' | 'policy' | 'tokyo-trial' | 'zainichi-privilege' | 'anti-japan-education' | 'historical-recognition' | 'ishimaru-politics' | 'libertarianism' | 'neoliberalism-neoconservatism' | 'conservative-parties'
+  category: '新自由主義と新保守主義' | '日本の歴代総理大臣の功績と失敗' | 'グローバリズムと反グローバリズム' | '東京裁判史観と日本の歴史認識について' | '右翼と反左翼' | '在日' | '選択的夫婦別姓と皇統' | '参政党と日本保守党' | '再生の道とチーム未来' | '国政政党の政策について'
   relatedParty?: string
 }
