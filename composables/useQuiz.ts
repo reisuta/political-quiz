@@ -117,22 +117,16 @@ export const useQuiz = () => {
 
   const getCategoryDisplayName = (category: string) => {
     const categoryNames: Record<string, string> = {
-      'tokyo-trial': '東京裁判史観について',
-      'zainichi-privilege': '在日特権について',
-      'anti-japan-education': '在日と反日教育について',
-      'historical-recognition': '日本の歴史認識について',
-      'ishimaru-politics': '再生の道と石丸伸二の政治的立場について',
-      'libertarianism': 'リバタリアニズムとはなにか',
-      'neoliberalism-neoconservatism': '新自由主義と新保守主義について',
-      'conservative-parties': '日本保守党と新保守主義の関連と参政党との違いについて',
-      'selective-surname': '選択的夫婦別姓のデメリット',
-      'hayek': 'ハイエクについて',
-      'abenomics': 'アベノミクスについて',
-      'koizumi': '小泉純一郎総理の功績と失敗',
-      'sanseito': '参政党の特徴',
-      'neoliberalism': '新自由主義について',
-      'multiculturalism': '多文化共生庁のデメリット',
-      'anti-left-vs-right': '反左翼と右翼の違いについて'
+      '新自由主義と新保守主義': '新自由主義と新保守主義',
+      '日本の歴代総理大臣の功績と失敗': '日本の歴代総理大臣の功績と失敗',
+      'グローバリズムと反グローバリズム': 'グローバリズムと反グローバリズム',
+      '東京裁判史観と日本の歴史認識について': '東京裁判史観と日本の歴史認識について',
+      '右翼と反左翼': '右翼と反左翼',
+      '在日': '在日',
+      '選択的夫婦別姓と皇統': '選択的夫婦別姓と皇統',
+      '参政党と日本保守党': '参政党と日本保守党',
+      '再生の道とチーム未来': '再生の道とチーム未来',
+      '国政政党の政策について': '国政政党の政策について'
     }
     return categoryNames[category] || category
   }
@@ -171,6 +165,7 @@ export const useQuiz = () => {
     isCompleted: readonly(isCompleted),
     showResult: readonly(showResult),
     quizResults: readonly(quizResults),
+    currentQuestions: readonly(currentQuestions),
     shuffleQuestions,
     selectAnswer,
     nextQuestion,
@@ -181,6 +176,9 @@ export const useQuiz = () => {
     getAnswerResult,
     startCategoryQuiz,
     getAvailableCategories,
-    getCategoryDisplayName
+    getCategoryDisplayName,
+    completeQuiz: () => finishQuiz(),
+    startQuizWithCategory: (category: string) => startCategoryQuiz(category),
+    getDetailedResults: () => quizResults.value
   }
 }
