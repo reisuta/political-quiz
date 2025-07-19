@@ -3,13 +3,13 @@ import { vi } from 'vitest'
 import { ref, reactive, computed, readonly } from 'vue'
 
 // Vue 3 の自動インポート
-global.ref = ref
-global.reactive = reactive
-global.computed = computed
-global.readonly = readonly
+;(global as any).ref = ref
+;(global as any).reactive = reactive
+;(global as any).computed = computed
+;(global as any).readonly = readonly
 
 // useQuizのグローバルモック
-global.useQuiz = vi.fn(() => ({
+;(global as any).useQuiz = vi.fn(() => ({
   currentQuestion: ref({}),
   currentQuestionIndex: ref(0),
   totalQuestions: ref(0),

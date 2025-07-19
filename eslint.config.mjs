@@ -26,5 +26,11 @@ export default withNuxt(
       'space-infix-ops': 'error',
       'eol-last': 'error'
     }
+  },
+  {
+    files: ['tests/**/*', '**/*.test.ts', '**/*.spec.ts', 'types/**/*'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off'
+    }
   }
 )

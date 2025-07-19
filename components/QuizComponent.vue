@@ -16,7 +16,7 @@
       </div>
 
       <!-- Question -->
-      <div class="mb-6">
+      <div v-if="currentQuestion" class="mb-6">
         <h3 class="text-xl font-semibold text-gray-800 mb-4">
           {{ currentQuestion.question }}
         </h3>
@@ -86,7 +86,7 @@
     </div>
 
     <!-- Results -->
-    <QuizResult v-else :score="score" :quiz-results="quizResults" @restart="handleRestart" />
+    <QuizResult v-else :score="score" :quiz-results="quizResults as any" @restart="handleRestart" />
   </div>
 </template>
 

@@ -9,11 +9,11 @@ const mockQuizResults = [
     question: {
       id: 'q1',
       question: '問題1',
-      type: 'multiple-choice',
+      type: 'multiple-choice' as const,
       options: ['A', 'B', 'C', 'D'],
       correctAnswer: 0,
       explanation: '問題1の解説',
-      category: 'test',
+      category: 'basic-info' as const,
       relatedParty: 'test'
     },
     userAnswer: 0,
@@ -25,10 +25,10 @@ const mockQuizResults = [
     question: {
       id: 'q2',
       question: '問題2',
-      type: 'true-false',
+      type: 'true-false' as const,
       correctAnswer: 'true',
       explanation: '問題2の解説',
-      category: 'test',
+      category: 'basic-info' as const,
       relatedParty: 'test'
     },
     userAnswer: 'false',
@@ -36,7 +36,7 @@ const mockQuizResults = [
     isCorrect: false,
     explanation: '問題2の解説'
   }
-]
+] as any
 
 const mockUseQuiz = {
   getAnswerResult: vi.fn((index) => mockQuizResults[index]),
@@ -65,7 +65,7 @@ describe('QuizResult', () => {
 
   const createWrapper = (props = {}) => {
     // グローバルuseQuizモックを上書き
-    global.useQuiz = vi.fn(() => mockUseQuiz)
+    ;(global as any).useQuiz = vi.fn(() => mockUseQuiz)
 
     return mount(QuizResult, {
       props: {
@@ -176,28 +176,28 @@ describe('QuizResult', () => {
       const resultItems = wrapper.findAll('.border.rounded-lg')
       const correctItem = resultItems[0]
 
-      expect(correctItem.classes()).toContain('border-green-200')
-      expect(correctItem.classes()).toContain('bg-green-50')
-      expect(correctItem.text()).toContain('正解')
+      expect(correctItem?.classes()).toContain('border-green-200')
+      expect(correctItem?.classes()).toContain('bg-green-50')
+      expect(correctItem?.text()).toContain('正解')
     })
 
     it('不正解問題が赤色で表示される', () => {
       const resultItems = wrapper.findAll('.border.rounded-lg')
       const incorrectItem = resultItems[1]
 
-      expect(incorrectItem.classes()).toContain('border-red-200')
-      expect(incorrectItem.classes()).toContain('bg-red-50')
-      expect(incorrectItem.text()).toContain('不正解')
+      expect(incorrectItem?.classes()).toContain('border-red-200')
+      expect(incorrectItem?.classes()).toContain('bg-red-50')
+      expect(incorrectItem?.text()).toContain('不正解')
     })
 
     it('問題文と解説が表示される', () => {
       const resultItems = wrapper.findAll('.border.rounded-lg')
 
-      expect(resultItems[0].text()).toContain('問題1')
-      expect(resultItems[0].text()).toContain('問題1の解説')
+      expect(resultItems[0]?.text()).toContain('問題1')
+      expect(resultItems[0]?.text()).toContain('問題1の解説')
 
-      expect(resultItems[1].text()).toContain('問題2')
-      expect(resultItems[1].text()).toContain('問題2の解説')
+      expect(resultItems[1]?.text()).toContain('問題2')
+      expect(resultItems[1]?.text()).toContain('問題2の解説')
     })
   })
 })

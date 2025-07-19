@@ -5,7 +5,7 @@ import IndexPage from '~/pages/index.vue'
 describe('IndexPage', () => {
   const createWrapper = () => {
     // グローバルuseQuizモックを設定
-    global.useQuiz = vi.fn(() => ({
+    ;(global as any).useQuiz = vi.fn(() => ({
       getAvailableCategories: vi.fn(() => [
         { id: 'test1', name: 'テストカテゴリ1', questionCount: 3 },
         { id: 'test2', name: 'テストカテゴリ2', questionCount: 2 }

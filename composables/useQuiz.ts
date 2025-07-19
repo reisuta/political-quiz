@@ -50,10 +50,10 @@ export const useQuiz = () => {
     // 結果を保存
     quizResults.value = currentQuestions.value.map((question, index) => {
       const answer = selectedAnswers.value[index]
-      const isCorrect = answer === question.correctAnswer
+      const isCorrect = answer !== undefined && answer === question.correctAnswer
       return {
         question,
-        userAnswer: answer,
+        userAnswer: answer ?? '',
         correctAnswer: question.correctAnswer,
         isCorrect,
         explanation: question.explanation
@@ -128,12 +128,16 @@ export const useQuiz = () => {
 
     // フォールバック（クイズ進行中用）
     const question = currentQuestions.value[questionIndex]
+    if (!question) {
+      throw new Error(`Question at index ${questionIndex} not found`)
+    }
+
     const userAnswer = selectedAnswers.value[questionIndex]
-    const isCorrect = userAnswer === question.correctAnswer
+    const isCorrect = userAnswer !== undefined && userAnswer === question.correctAnswer
 
     return {
       question,
-      userAnswer,
+      userAnswer: userAnswer ?? '',
       correctAnswer: question.correctAnswer,
       isCorrect,
       explanation: question.explanation

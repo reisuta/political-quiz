@@ -64,17 +64,10 @@
 </template>
 
 <script setup lang="ts">
+import type { QuizQuestion } from '~/types/political'
+
 type QuizResultItem = {
-  question: {
-    id: string
-    question: string
-    type: string
-    options?: string[]
-    correctAnswer: string | number
-    explanation: string
-    category: string
-    relatedParty: string
-  }
+  question: QuizQuestion
   userAnswer: string | number
   correctAnswer: string | number
   isCorrect: boolean

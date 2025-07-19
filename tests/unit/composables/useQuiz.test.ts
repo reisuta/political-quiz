@@ -54,7 +54,7 @@ describe('useQuiz', () => {
     })
 
     it('最初の問題が正しく取得できる', () => {
-      expect(quiz.currentQuestion.value.id).toBe('test1')
+      expect(quiz.currentQuestion.value?.id).toBe('test1')
     })
   })
 
@@ -78,7 +78,7 @@ describe('useQuiz', () => {
       expect(quiz.currentQuestionIndex.value).toBe(0)
       quiz.nextQuestion()
       expect(quiz.currentQuestionIndex.value).toBe(1)
-      expect(quiz.currentQuestion.value.id).toBe('test2')
+      expect(quiz.currentQuestion.value?.id).toBe('test2')
     })
 
     it('最後の問題でnextQuestionを呼ぶとクイズが終了する', () => {
@@ -161,11 +161,11 @@ describe('useQuiz', () => {
       quiz.finishQuiz()
 
       expect(quiz.quizResults.value).toHaveLength(3)
-      expect(quiz.quizResults.value[0].isCorrect).toBe(true)
-      expect(quiz.quizResults.value[1].isCorrect).toBe(true)
-      expect(quiz.quizResults.value[2].isCorrect).toBe(false)
-      expect(quiz.quizResults.value[2].userAnswer).toBe(1)
-      expect(quiz.quizResults.value[2].correctAnswer).toBe(2)
+      expect(quiz.quizResults.value[0]?.isCorrect).toBe(true)
+      expect(quiz.quizResults.value[1]?.isCorrect).toBe(true)
+      expect(quiz.quizResults.value[2]?.isCorrect).toBe(false)
+      expect(quiz.quizResults.value[2]?.userAnswer).toBe(1)
+      expect(quiz.quizResults.value[2]?.correctAnswer).toBe(2)
     })
   })
 
@@ -200,8 +200,8 @@ describe('useQuiz', () => {
     it('カテゴリーで問題をフィルタリングできる', () => {
       const testCategoryQuestions = quiz.getQuestionsByCategory('test-category')
       expect(testCategoryQuestions).toHaveLength(2)
-      expect(testCategoryQuestions[0].category).toBe('test-category')
-      expect(testCategoryQuestions[1].category).toBe('test-category')
+      expect(testCategoryQuestions[0]?.category).toBe('test-category')
+      expect(testCategoryQuestions[1]?.category).toBe('test-category')
     })
 
     it('存在しないカテゴリーは空配列を返す', () => {

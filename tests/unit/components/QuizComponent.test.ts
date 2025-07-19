@@ -46,7 +46,7 @@ describe('QuizComponent', () => {
     mockQuizData.progress.value = 0
 
     // グローバルuseQuizモックを上書き
-    global.useQuiz = vi.fn(() => mockQuizData)
+    ;(global as any).useQuiz = vi.fn(() => mockQuizData)
 
     wrapper = mount(QuizComponent, {
       global: {
