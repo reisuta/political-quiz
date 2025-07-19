@@ -6,6 +6,7 @@
       <button
         v-for="category in categories"
         :key="category.id"
+        data-test="category-button"
         class="group relative p-6 bg-gradient-to-br from-white to-gray-50 rounded-xl border-2 border-gray-200 hover:border-blue-400 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 text-left overflow-hidden"
         @click="$emit('select-category', category.id)"
       >
@@ -24,6 +25,7 @@
 
     <div class="text-center pt-4 border-t border-gray-200">
       <button
+        data-test="all-questions-button"
         class="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-red-600 text-white font-bold rounded-xl hover:shadow-xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
         @click="$emit('select-all')"
       >
