@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["vitest/globals", "node"],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "../types/global.d.ts",
+    "./types.d.ts",
+    "**/*.ts",
+    "**/*.vue"
+  ]
+}

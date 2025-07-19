@@ -8,7 +8,7 @@
           <span>{{ Math.round(progress) }}%</span>
         </div>
         <div class="w-full bg-gray-200 rounded-full h-2">
-          <div 
+          <div
             class="bg-blue-600 h-2 rounded-full transition-all duration-300"
             :style="{ width: progress + '%' }"
           />
@@ -16,7 +16,7 @@
       </div>
 
       <!-- Question -->
-      <div class="mb-6">
+      <div v-if="currentQuestion" class="mb-6">
         <h3 class="text-xl font-semibold text-gray-800 mb-4">
           {{ currentQuestion.question }}
         </h3>
@@ -74,7 +74,7 @@
         >
           前の問題
         </button>
-        
+
         <button
           :disabled="selectedAnswers[currentQuestionIndex] === undefined"
           class="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition duration-200"
@@ -86,7 +86,7 @@
     </div>
 
     <!-- Results -->
-    <QuizResult v-else :score="score" :quiz-results="quizResults" @restart="handleRestart" />
+    <QuizResult v-else :score="score" :quiz-results="quizResults as any" @restart="handleRestart" />
   </div>
 </template>
 

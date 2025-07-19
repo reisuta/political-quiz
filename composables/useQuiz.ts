@@ -8,7 +8,15 @@ export const useQuiz = () => {
   const isCompleted = ref(false)
   const showResult = ref(false)
   const currentQuestions = ref([...quizQuestions])
-  const quizResults = ref<any[]>([])
+  type QuizResultItem = {
+    question: _QuizQuestion
+    userAnswer: string | number
+    correctAnswer: string | number
+    isCorrect: boolean
+    explanation: string
+  }
+
+  const quizResults = ref<QuizResultItem[]>([])
 
   const currentQuestion = computed(() => currentQuestions.value[currentQuestionIndex.value])
   const totalQuestions = computed(() => currentQuestions.value.length)
@@ -42,10 +50,10 @@ export const useQuiz = () => {
     // 結果を保存
     quizResults.value = currentQuestions.value.map((question, index) => {
       const answer = selectedAnswers.value[index]
-      const isCorrect = answer === question.correctAnswer
+      const isCorrect = answer !== undefined && answer === question.correctAnswer
       return {
         question,
-        userAnswer: answer,
+        userAnswer: answer ?? '',
         correctAnswer: question.correctAnswer,
         isCorrect,
         explanation: question.explanation
@@ -80,20 +88,56 @@ export const useQuiz = () => {
     return quizQuestions.filter(q => q.category === category)
   }
 
+  const startCategoryQuiz = (category: string) => {
+    const categoryQuestions = getQuestionsByCategory(category)
+    if (categoryQuestions.length === 0) {
+      throw new Error(`カテゴリー "${category}" に問題がありません`)
+    }
+    currentQuestions.value = [...categoryQuestions]
+    resetQuiz()
+  }
+
+  const getAvailableCategories = () => {
+    const categories = new Set(quizQuestions.map(q => q.category))
+    return Array.from(categories).map(category => ({
+      id: category,
+      name: getCategoryDisplayName(category),
+      questionCount: getQuestionsByCategory(category).length
+    }))
+  }
+
+  const getCategoryDisplayName = (category: string) => {
+    const categoryNames: Record<string, string> = {
+      'tokyo-trial': '東京裁判史観について',
+      'zainichi-privilege': '在日特権について',
+      'anti-japan-education': '在日と反日教育について',
+      'historical-recognition': '日本の歴史認識について',
+      'ishimaru-politics': '再生の道と石丸伸二の政治的立場について',
+      'libertarianism': 'リバタリアニズムとはなにか',
+      'neoliberalism-neoconservatism': '新自由主義と新保守主義について',
+      'conservative-parties': '日本保守党と新保守主義の関連と参政党との違いについて'
+    }
+    return categoryNames[category] || category
+  }
+
   const getAnswerResult = (questionIndex: number) => {
     // 保存された結果があればそれを使用
     if (quizResults.value.length > 0 && quizResults.value[questionIndex]) {
       return quizResults.value[questionIndex]
     }
-    
+
     // フォールバック（クイズ進行中用）
     const question = currentQuestions.value[questionIndex]
+    if (!question) {
+      throw new Error(`Question at index ${questionIndex} not found`)
+    }
+
     const userAnswer = selectedAnswers.value[questionIndex]
-    const isCorrect = userAnswer === question.correctAnswer
-    
+    const isCorrect = userAnswer !== undefined && userAnswer === question.correctAnswer
+
     return {
       question,
-      userAnswer,
+      userAnswer: userAnswer ?? '',
       correctAnswer: question.correctAnswer,
       isCorrect,
       explanation: question.explanation
@@ -117,6 +161,9 @@ export const useQuiz = () => {
     finishQuiz,
     resetQuiz,
     getQuestionsByCategory,
-    getAnswerResult
+    getAnswerResult,
+    startCategoryQuiz,
+    getAvailableCategories,
+    getCategoryDisplayName
   }
 }
