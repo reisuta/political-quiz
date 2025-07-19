@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+
 import { useQuiz } from '~/composables/useQuiz'
 
 vi.mock('~/data/questions', () => ({
@@ -40,6 +41,7 @@ describe('useQuiz', () => {
 
   beforeEach(() => {
     quiz = useQuiz()
+    quiz.resetQuiz() // シングルトン状態をリセット
   })
 
   describe('初期状態', () => {
@@ -230,6 +232,59 @@ describe('useQuiz', () => {
       expect(result.userAnswer).toBe(1)
       expect(result.correctAnswer).toBe(0)
       expect(result.isCorrect).toBe(false)
+    })
+  })
+
+  describe('startCategoryQuiz', () => {
+    it('存在しないカテゴリーでエラーを投げる', () => {
+      expect(() => {
+        quiz.startCategoryQuiz('non-existent-category')
+      }).toThrow('カテゴリー "non-existent-category" に問題がありません')
+    })
+  })
+
+  describe('getAvailableCategories', () => {
+    it('利用可能なカテゴリー一覧を取得できる', () => {
+      const categories = quiz.getAvailableCategories()
+
+      expect(categories.length).toBeGreaterThan(0)
+      // 各カテゴリーが適切な構造を持っていることを確認
+      categories.forEach(category => {
+        expect(category).toHaveProperty('id')
+        expect(category).toHaveProperty('name')
+        expect(category).toHaveProperty('questionCount')
+        expect(typeof category.id).toBe('string')
+        expect(typeof category.name).toBe('string')
+        expect(typeof category.questionCount).toBe('number')
+        expect(category.questionCount).toBeGreaterThan(0)
+      })
+    })
+
+    it('各カテゴリーの問題数が正しく計算される', () => {
+      const categories = quiz.getAvailableCategories()
+
+      categories.forEach(category => {
+        expect(category.questionCount).toBeGreaterThan(0)
+        expect(typeof category.questionCount).toBe('number')
+      })
+    })
+  })
+
+  describe('getCategoryDisplayName', () => {
+    it('カテゴリーの表示名を取得できる', () => {
+      expect(quiz.getCategoryDisplayName('tokyo-trial')).toBe('東京裁判史観について')
+      expect(quiz.getCategoryDisplayName('selective-surname')).toBe('選択的夫婦別姓のデメリット')
+      expect(quiz.getCategoryDisplayName('hayek')).toBe('ハイエクについて')
+      expect(quiz.getCategoryDisplayName('abenomics')).toBe('アベノミクスについて')
+      expect(quiz.getCategoryDisplayName('koizumi')).toBe('小泉純一郎総理の功績と失敗')
+      expect(quiz.getCategoryDisplayName('sanseito')).toBe('参政党の特徴')
+      expect(quiz.getCategoryDisplayName('neoliberalism')).toBe('新自由主義について')
+      expect(quiz.getCategoryDisplayName('multiculturalism')).toBe('多文化共生庁のデメリット')
+      expect(quiz.getCategoryDisplayName('anti-left-vs-right')).toBe('反左翼と右翼の違いについて')
+    })
+
+    it('未定義のカテゴリーは元の文字列を返す', () => {
+      expect(quiz.getCategoryDisplayName('unknown-category')).toBe('unknown-category')
     })
   })
 })

@@ -41,6 +41,6 @@ export type QuizQuestion = {
   options?: string[]
   correctAnswer: string | number
   explanation: string
-  category: 'basic-info' | 'ideology' | 'policy' | 'tokyo-trial' | 'zainichi-privilege' | 'anti-japan-education' | 'historical-recognition' | 'ishimaru-politics' | 'libertarianism' | 'neoliberalism-neoconservatism' | 'conservative-parties'
+  category: 'basic-info' | 'ideology' | 'policy' | 'tokyo-trial' | 'zainichi-privilege' | 'anti-japan-education' | 'historical-recognition' | 'ishimaru-politics' | 'libertarianism' | 'neoliberalism-neoconservatism' | 'conservative-parties' | 'selective-surname' | 'hayek' | 'abenomics' | 'koizumi' | 'sanseito' | 'neoliberalism' | 'multiculturalism' | 'anti-left-vs-right'
   relatedParty?: string
 }

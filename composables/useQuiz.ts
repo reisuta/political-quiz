@@ -1,22 +1,25 @@
 import type { QuizQuestion as _QuizQuestion } from '~/types/political'
 import { quizQuestions } from '~/data/questions'
 
-export const useQuiz = () => {
-  const currentQuestionIndex = ref(0)
-  const selectedAnswers = ref<(string | number)[]>([])
-  const score = ref(0)
-  const isCompleted = ref(false)
-  const showResult = ref(false)
-  const currentQuestions = ref([...quizQuestions])
-  type QuizResultItem = {
-    question: _QuizQuestion
-    userAnswer: string | number
-    correctAnswer: string | number
-    isCorrect: boolean
-    explanation: string
-  }
+// シングルトンとして状態を管理
+const currentQuestionIndex = ref(0)
+const selectedAnswers = ref<(string | number)[]>([])
+const score = ref(0)
+const isCompleted = ref(false)
+const showResult = ref(false)
+const currentQuestions = ref([...quizQuestions])
 
-  const quizResults = ref<QuizResultItem[]>([])
+type QuizResultItem = {
+  question: _QuizQuestion
+  userAnswer: string | number
+  correctAnswer: string | number
+  isCorrect: boolean
+  explanation: string
+}
+
+const quizResults = ref<QuizResultItem[]>([])
+
+export const useQuiz = () => {
 
   const currentQuestion = computed(() => currentQuestions.value[currentQuestionIndex.value])
   const totalQuestions = computed(() => currentQuestions.value.length)
@@ -93,8 +96,14 @@ export const useQuiz = () => {
     if (categoryQuestions.length === 0) {
       throw new Error(`カテゴリー "${category}" に問題がありません`)
     }
+    // 先にリセットしてから、カテゴリーの問題を設定
+    currentQuestionIndex.value = 0
+    selectedAnswers.value = []
+    score.value = 0
+    isCompleted.value = false
+    showResult.value = false
+    quizResults.value = []
     currentQuestions.value = [...categoryQuestions]
-    resetQuiz()
   }
 
   const getAvailableCategories = () => {
@@ -115,7 +124,15 @@ export const useQuiz = () => {
       'ishimaru-politics': '再生の道と石丸伸二の政治的立場について',
       'libertarianism': 'リバタリアニズムとはなにか',
       'neoliberalism-neoconservatism': '新自由主義と新保守主義について',
-      'conservative-parties': '日本保守党と新保守主義の関連と参政党との違いについて'
+      'conservative-parties': '日本保守党と新保守主義の関連と参政党との違いについて',
+      'selective-surname': '選択的夫婦別姓のデメリット',
+      'hayek': 'ハイエクについて',
+      'abenomics': 'アベノミクスについて',
+      'koizumi': '小泉純一郎総理の功績と失敗',
+      'sanseito': '参政党の特徴',
+      'neoliberalism': '新自由主義について',
+      'multiculturalism': '多文化共生庁のデメリット',
+      'anti-left-vs-right': '反左翼と右翼の違いについて'
     }
     return categoryNames[category] || category
   }

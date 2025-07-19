@@ -43,12 +43,12 @@ describe('IndexPage', () => {
   describe('初期表示', () => {
     it('タイトルが表示される', () => {
       const wrapper = createWrapper()
-      expect(wrapper.find('h2').text()).toBe('政治クイズに挑戦！')
+      expect(wrapper.find('h1').text()).toBe('日本政治クイズ')
     })
 
     it('説明文が表示される', () => {
       const wrapper = createWrapper()
-      expect(wrapper.text()).toContain('日本の政党の基本情報、政治思想、政策立場について学習できるクイズです。')
+      expect(wrapper.text()).toContain('日本の政党の基本情報、政治思想、政策立場について学習できるインタラクティブなクイズです。')
     })
 
     it('CategorySelectorが表示される', () => {

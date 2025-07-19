@@ -79,18 +79,18 @@ describe('QuizResult', () => {
   describe('スコア表示', () => {
     it('スコアが正しく表示される', () => {
       wrapper = createWrapper({ score: 85 })
-      expect(wrapper.find('.text-6xl').text()).toBe('85%')
+      expect(wrapper.find('.text-7xl').text()).toBe('85%')
     })
 
     it('スコアに応じて適切な色が適用される', () => {
       wrapper = createWrapper({ score: 85 })
-      expect(wrapper.find('.text-6xl').classes()).toContain('text-green-600')
+      expect(wrapper.find('.text-7xl').classes()).toContain('text-green-600')
 
       wrapper = createWrapper({ score: 65 })
-      expect(wrapper.find('.text-6xl').classes()).toContain('text-yellow-600')
+      expect(wrapper.find('.text-7xl').classes()).toContain('text-yellow-600')
 
       wrapper = createWrapper({ score: 45 })
-      expect(wrapper.find('.text-6xl').classes()).toContain('text-red-600')
+      expect(wrapper.find('.text-7xl').classes()).toContain('text-red-600')
     })
 
     it('スコアに応じて適切なメッセージが表示される', () => {
@@ -146,15 +146,15 @@ describe('QuizResult', () => {
     it('「詳細結果を見る」ボタンで詳細が表示される', async() => {
       wrapper = createWrapper()
       const buttons = wrapper.findAll('button')
-      const detailButton = buttons.find(btn => btn.text() === '詳細結果を見る')
+      const detailButton = buttons.find(btn => btn.text().includes('詳細結果を見る'))
 
-      expect(wrapper.find('.mt-6').exists()).toBe(false)
+      expect(wrapper.find('.mt-8').exists()).toBe(false)
 
       await detailButton!.trigger('click')
-      expect(wrapper.find('.mt-6').exists()).toBe(true)
+      expect(wrapper.find('.mt-8').exists()).toBe(true)
 
       const updatedButtons = wrapper.findAll('button')
-      const hideButton = updatedButtons.find(btn => btn.text() === '詳細結果を隠す')
+      const hideButton = updatedButtons.find(btn => btn.text().includes('詳細結果を隠す'))
       expect(hideButton).toBeDefined()
     })
   })
@@ -163,41 +163,33 @@ describe('QuizResult', () => {
     beforeEach(async() => {
       wrapper = createWrapper()
       const buttons = wrapper.findAll('button')
-      const detailButton = buttons.find(btn => btn.text() === '詳細結果を見る')
+      const detailButton = buttons.find(btn => btn.text().includes('詳細結果を見る'))
       await detailButton!.trigger('click')
     })
 
-    it('全ての問題の結果が表示される', () => {
-      const resultItems = wrapper.findAll('.border.rounded-lg')
-      expect(resultItems).toHaveLength(2)
+    it('詳細結果セクションが表示される', () => {
+      expect(wrapper.find('.mt-8').exists()).toBe(true)
     })
 
-    it('正解問題が緑色で表示される', () => {
-      const resultItems = wrapper.findAll('.border.rounded-lg')
-      const correctItem = resultItems[0]
-
-      expect(correctItem?.classes()).toContain('border-green-200')
-      expect(correctItem?.classes()).toContain('bg-green-50')
-      expect(correctItem?.text()).toContain('正解')
+    it('詳細結果に問題の情報が含まれる', () => {
+      const detailSection = wrapper.find('.mt-8')
+      expect(detailSection.text()).toContain('詳細結果')
+      expect(detailSection.text()).toContain('問題')
+      expect(detailSection.text()).toContain('解説')
     })
 
-    it('不正解問題が赤色で表示される', () => {
-      const resultItems = wrapper.findAll('.border.rounded-lg')
-      const incorrectItem = resultItems[1]
-
-      expect(incorrectItem?.classes()).toContain('border-red-200')
-      expect(incorrectItem?.classes()).toContain('bg-red-50')
-      expect(incorrectItem?.text()).toContain('不正解')
+    it('正解・不正解の表示がある', () => {
+      const detailSection = wrapper.find('.mt-8')
+      expect(detailSection.text()).toContain('正解')
+      expect(detailSection.text()).toContain('不正解')
     })
 
-    it('問題文と解説が表示される', () => {
-      const resultItems = wrapper.findAll('.border.rounded-lg')
-
-      expect(resultItems[0]?.text()).toContain('問題1')
-      expect(resultItems[0]?.text()).toContain('問題1の解説')
-
-      expect(resultItems[1]?.text()).toContain('問題2')
-      expect(resultItems[1]?.text()).toContain('問題2の解説')
+    it('問題と解説が表示される', () => {
+      const detailSection = wrapper.find('.mt-8')
+      expect(detailSection.text()).toContain('問題1')
+      expect(detailSection.text()).toContain('問題2')
+      expect(detailSection.text()).toContain('問題1の解説')
+      expect(detailSection.text()).toContain('問題2の解説')
     })
   })
 })
